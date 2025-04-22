@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.4'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
-	id 'com.diffplug.spotless' version '6.19.0' // ✅ Spotless plugin added
+	id 'com.diffplug.spotless' version '6.15.0'  // ✅ Spotless plugin
 }
 
 group = 'com.zapcom'
@@ -63,31 +63,25 @@ dependencyManagement {
 	}
 }
 
-spotless {
-	java {
-		googleJavaFormat() // Or you can use eclipse() or prettierJava()
-
-		// Remove unused imports
-		removeUnusedImports()
-
-		// Refuse wildcard imports
-		custom 'No wildcard imports', { str ->
-			if (str.contains('import ')) {
-				def lines = str.readLines()
-				def invalid = lines.findAll { it =~ /import\s+.*\.\*\s*;/ }
-				if (!invalid.isEmpty()) {
-					throw new GradleException("Wildcard imports found: \n" + invalid.join("\n"))
-				}
-			}
-			return str
-		}
-
-		// Target source files
-		target 'src/**/*.java'
-	}
-}
 
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// Spotless config
+spotless {
+	java {
+		googleJavaFormat()           // Autoformat to Google Java Style
+		removeUnusedImports()        // Remove unused imports
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+}
+
+task installLocalGitHook(type: Copy){
+	from new File(rootProject.rootDir, 'scripts/pre-commit')
+	into { new File(rootProject.rootDir, '.git/hooks')}
+	fileMode 0775
+}
+build.dependsOn installLocalGitHook

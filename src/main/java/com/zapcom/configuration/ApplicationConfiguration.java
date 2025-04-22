@@ -22,17 +22,14 @@ public class ApplicationConfiguration {
     return new BCryptPasswordEncoder();
   }
 
-
   @Bean
   public MethodValidationPostProcessor methodValidationPostProcessor() {
     return new MethodValidationPostProcessor();
   }
 
-  @Autowired
-  private MongoDatabaseFactory mongoDatabaseFactory;
+  @Autowired private MongoDatabaseFactory mongoDatabaseFactory;
 
-  @Autowired
-  private MongoMappingContext mongoMappingContext;
+  @Autowired private MongoMappingContext mongoMappingContext;
 
   @Bean
   public MappingMongoConverter mappingMongoConverter() {
@@ -41,6 +38,5 @@ public class ApplicationConfiguration {
     MappingMongoConverter converter = new MappingMongoConverter(dbRefResolver, mongoMappingContext);
     converter.setTypeMapper(new DefaultMongoTypeMapper(null));
     return converter;
-
   }
 }
