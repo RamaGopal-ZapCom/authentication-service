@@ -1,0 +1,35 @@
+server:
+  port: 9991
+spring:
+  application:
+    name: auth-service
+  banner:
+    location: static/banner.txt
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: zap-mind
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: rama.gopal0046
+    password: bxuu yhre hknh uzgf
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+application:
+        path: /auth-service
+
+email:
+  activation:
+    url: 'http://localhost:9991/auth-service/activate/'
+
+app:
+  secret: mySecretKeymySecretKeymySecretKeymySecretKeymySecretKeymySecretKeymySecretKeymySecretKeymySecretKeymySecretKey
+client-service:
+  base-url: http://localhost:9994/client-service
