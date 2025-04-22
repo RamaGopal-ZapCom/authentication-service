@@ -13,7 +13,8 @@ public class AuthServiceSwaggerConfiguration {
   @Bean
   public OpenAPI customOpenAPI() {
     return new OpenAPI()
-        .info(new Info()
+        .info(
+            new Info()
                 .title("Authentication Service API")
                 .version("1.0")
                 .description("API documentation for Client Service"));
@@ -27,6 +28,4 @@ public class AuthServiceSwaggerConfiguration {
         .packagesToScan("com.zapcom.controller")
         .build();
   }
-
-
 }

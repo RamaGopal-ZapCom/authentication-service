@@ -13,7 +13,6 @@ import com.zapcom.utils.JwtUtil;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -264,17 +263,16 @@ public class AuthService {
     }
 
     // Step 4: Return successful login response
-    List<AuthenticationEntity> authEntities = authenticationRepository.findByEmailAndStatus(email, "ACTIVE");
+    List<AuthenticationEntity> authEntities =
+        authenticationRepository.findByEmailAndStatus(email, "ACTIVE");
     if (authEntities.size() != 1) {
       throw new UserNotFoundException("User not found or not active");
     }
 
     AuthenticationEntity authEntity = authEntities.get(0);
     return new LoginResponse(
-            authEntity.getEmail(),
-            authEntity.getJwtToken(),
-            "Successfully authenticated and sending response to customer"
-    );
+        authEntity.getEmail(),
+        authEntity.getJwtToken(),
+        "Successfully authenticated and sending response to customer");
   }
-
 }

@@ -6,9 +6,8 @@ import com.zapcom.dto.LoginResponse;
 import com.zapcom.dto.Response;
 import com.zapcom.service.AuthService;
 import com.zapcom.utils.JwtUtil;
-import java.util.Map;
-
 import jakarta.validation.Valid;
+import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -49,7 +48,7 @@ public class AuthController {
 
   @PostMapping("/login")
   @Validated
-  public ResponseEntity<?> login( @Valid @RequestBody LoginRequest request) {
+  public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
     LoginResponse response = authService.login(request.email(), request.password());
     return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
   }
